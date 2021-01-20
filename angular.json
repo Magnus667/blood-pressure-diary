@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "projects": {
+    "blood-pressure-diary": {
+      "projectType": "application",
+      "root": "apps/blood-pressure-diary",
+      "sourceRoot": "apps/blood-pressure-diary/src",
+      "prefix": "blood-pressure-diary",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/blood-pressure-diary",
+            "index": "apps/blood-pressure-diary/src/index.html",
+            "main": "apps/blood-pressure-diary/src/main.ts",
+            "polyfills": "apps/blood-pressure-diary/src/polyfills.ts",
+            "tsConfig": "apps/blood-pressure-diary/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/blood-pressure-diary/src/favicon.ico",
+              "apps/blood-pressure-diary/src/assets"
+            ],
+            "styles": ["apps/blood-pressure-diary/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/blood-pressure-diary/src/environments/environment.ts",
+                  "with": "apps/blood-pressure-diary/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "blood-pressure-diary:build",
+            "proxyConfig": "apps/blood-pressure-diary/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "blood-pressure-diary:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "blood-pressure-diary:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/blood-pressure-diary/tsconfig.app.json",
+              "apps/blood-pressure-diary/tsconfig.spec.json",
+              "apps/blood-pressure-diary/tsconfig.editor.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/blood-pressure-diary/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/blood-pressure-diary"],
+          "options": {
+            "jestConfig": "apps/blood-pressure-diary/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "blood-pressure-diary-e2e": {
+      "root": "apps/blood-pressure-diary-e2e",
+      "sourceRoot": "apps/blood-pressure-diary-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/blood-pressure-diary-e2e/cypress.json",
+            "tsConfig": "apps/blood-pressure-diary-e2e/tsconfig.e2e.json",
+            "devServerTarget": "blood-pressure-diary:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "blood-pressure-diary:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/blood-pressure-diary-e2e/tsconfig.e2e.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/blood-pressure-diary-e2e/**/*"
+            ]
+          }
+        }
+      }
+    },
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "prefix": "api",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/api/tsconfig.app.json",
+              "apps/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/api"],
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-interfaces": {
+      "root": "libs/api-interfaces",
+      "sourceRoot": "libs/api-interfaces/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/api-interfaces/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**/*"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "blood-pressure-diary"
+}

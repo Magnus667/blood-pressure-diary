@@ -1,0 +1,20 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "bloodPressureDiary",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "blood-pressure-diary",
+      "kebab-case"
+    ]
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
+  }
+}
