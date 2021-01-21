@@ -1,8 +1,38 @@
-<div style="text-align: center">
-  <h1>Welcome to blood-pressure-diary!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-  />
-</div>
-<div>Message: {{ hello$ | async | json }}</div>
+
+<p>
+  <mat-toolbar color="primary">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <a routerLink="/home">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </a>
+      </button>
+      <button mat-menu-item>
+        <a routerLink="/input">
+          <mat-icon>input</mat-icon>
+          <span>Eingabe</span>
+        </a>
+      </button>
+      <button mat-menu-item disabled>
+        <a routerLink="/chart">
+          <mat-icon>show_chart</mat-icon>
+          <span>Chart</span>
+        </a>
+      </button>
+    </mat-menu>
+  <span>Blutdruck Tagebuch</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>favorite</mat-icon>
+  </button>
+</mat-toolbar>
+</p>
+
+  
+
+
+<router-outlet></router-outlet>

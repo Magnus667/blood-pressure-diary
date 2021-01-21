@@ -1,0 +1,50 @@
+<form class="input-form" [formGroup]="DataValueControl">
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Systolischer Blutdruck</mat-label>
+            <input matInput type="number" max="300" formControlName="Systolic">
+            <mat-icon matSuffix></mat-icon><!-- This is to fix the length of the input for datepicker-->
+            <mat-hint>Systolischer Blutdruck [mmHg]</mat-hint>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Diastolischer Blutdruck</mat-label>
+            <input matInput type="number" max="300" formControlName="Diastolic">
+            <mat-icon matSuffix></mat-icon><!-- This is to fix the length of the input for datepicker-->
+            <mat-hint>Diastolischer Blutdruck [mmHg]</mat-hint>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Puls</mat-label>
+            <input matInput type="number" max="300" formControlName="Pulse">
+            <mat-icon matSuffix></mat-icon><!-- This is to fix the length of the input for datepicker-->
+            <mat-hint>Puls [bpm]</mat-hint>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Uhrzeit</mat-label>
+            <input matInput type="time"formControlName="Time">
+            <mat-icon matSuffix></mat-icon>
+            <mat-hint>Uhrzeit [hh:mm]</mat-hint>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Datum</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="Date">
+            <mat-icon matSuffix (click)="picker.open()">event</mat-icon>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    </p>
+    <p>
+        <button mat-raised-button color="primary" (click)="submit()">Senden</button>
+        <button mat-raised-button color="primary" (click)="reset()">Reset</button>
+    </p>
+
+    <span>{{ Message }}</span>
+</form>
+
+
