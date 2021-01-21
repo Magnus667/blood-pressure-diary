@@ -36,7 +36,7 @@
             <mat-label>Datum</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="Date">
             <mat-icon matSuffix (click)="picker.open()">event</mat-icon>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker touchUi=true #picker></mat-datepicker>
           </mat-form-field>
     </p>
     <p>
