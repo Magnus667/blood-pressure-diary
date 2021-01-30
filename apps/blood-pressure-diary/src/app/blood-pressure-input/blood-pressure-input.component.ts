@@ -7,6 +7,7 @@ import { BloodPressureDateCreaeDto } from '../dto/blood-pressure-date.create.dto
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { DataService } from '../data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'blood-pressure-diary-blood-pressure-input',
@@ -20,7 +21,7 @@ import { DataService } from '../data.service';
 })
 export class BloodPressureInputComponent implements OnInit {
 
-  constructor(private readonly datePipe: DatePipe, private readonly dateAdapter: DateAdapter<any>, private readonly dataService: DataService) {}
+  constructor(private readonly datePipe: DatePipe, private readonly dateAdapter: DateAdapter<any>, private readonly dataService: DataService, private snackBar: MatSnackBar) {}
 
   DateControl = new FormControl('', [ Validators.required]);
   TimeControl = new FormControl('', [ Validators.required]);
@@ -61,11 +62,13 @@ export class BloodPressureInputComponent implements OnInit {
       const dto = new BloodPressureDateCreaeDto(raw.Systolic, raw.Diastolic, raw.Pulse, date);
 
       this.dataService.saveData(dto).subscribe(result => {
+        this.snackBar.open(`Gespeichert`, ``, {
+          duration: 2000,
+          panelClass: ['mat-toolbar', 'mat-primary']
+        });
       });
     } else {
       this.Message = "Bitte alle Felder korrekt eingeben."
     }
-    // TODO: Das ganze ghört nicht an diese Stelle. Möglicherweise wäre es besser das TimeControl (und DateControl) auf changes zu subscriben und daraus ein gemeinen Wert zu erzeugen
-    
   }
 }
