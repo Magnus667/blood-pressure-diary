@@ -14,7 +14,7 @@ import { AuthController } from './auth/auth.controller';
 
 // '..' is used for heroku. '../..' is used for development.
 // TODO: Use NODE_ENV = prod for this.
-const pathFix = process.env.NODE_ENV !== "development" ? '../..' : '..';
+const pathFix = process.env.NODE_ENV === "development" ? '../..' : '..';
 console.log(__dirname, pathFix, '/blood-pressure-diary');
 @Module({
   imports: [
