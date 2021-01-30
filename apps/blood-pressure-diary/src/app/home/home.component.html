@@ -1,3 +1,26 @@
-<div class="home-component">
-    <button mat-raised-button color="primary" routerLink="/input">Eingabe</button> 
-</div>
+<form *ngIf="!appService.User" class="login-form" [formGroup]="LoginControls">
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Benutzername</mat-label>
+            <input matInput type="text" formControlName="Login">
+            <mat-icon matSuffix></mat-icon><!-- This is to fix the length of the input for password (due to toggle visibility icon)-->
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Passwort</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="Password">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+    </p>
+
+    <p>
+        <button mat-raised-button color="primary" (click)="login()">Anmelden</button>
+    </p>
+</form>
+
+<form *ngIf="appService.User" class="logout-form" [formGroup]="LogoutControls">
+    <p>
+        <button mat-raised-button color="primary" (click)="logout()">Abmelden</button>
+    </p>
+</form>

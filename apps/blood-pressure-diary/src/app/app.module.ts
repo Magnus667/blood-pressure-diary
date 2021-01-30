@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BloodPressureInputComponent } from './blood-pressure-input/blood-pressure-input.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,15 +17,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableModule } from '@angular/material/table';
 import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import localeDE from '@angular/common/locales/de'
 import { registerLocaleData } from '@angular/common';
 import { HomeComponent } from './home/home.component';
+import { DataListComponent } from './data-list/data-list.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 registerLocaleData(localeDE);
 
 @NgModule({
-  declarations: [AppComponent, BloodPressureInputComponent, HomeComponent],
+  declarations: [AppComponent, BloodPressureInputComponent, HomeComponent, DataListComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -41,9 +44,11 @@ registerLocaleData(localeDE);
     MatFormFieldModule,
     MatToolbarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTableModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' }
   ],
   bootstrap: [AppComponent],

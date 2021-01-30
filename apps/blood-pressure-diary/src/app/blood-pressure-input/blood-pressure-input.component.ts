@@ -6,6 +6,7 @@ import { MAT_MOMENT_DATE_FORMATS,  MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OP
 import { BloodPressureDateCreaeDto } from '../dto/blood-pressure-date.create.dto';
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'blood-pressure-diary-blood-pressure-input',
@@ -19,7 +20,7 @@ import * as moment from 'moment';
 })
 export class BloodPressureInputComponent implements OnInit {
 
-  constructor(private readonly datePipe: DatePipe, private readonly dateAdapter: DateAdapter<any>) {}
+  constructor(private readonly datePipe: DatePipe, private readonly dateAdapter: DateAdapter<any>, private readonly dataService: DataService) {}
 
   DateControl = new FormControl('', [ Validators.required]);
   TimeControl = new FormControl('', [ Validators.required]);
@@ -58,7 +59,9 @@ export class BloodPressureInputComponent implements OnInit {
       date.setSeconds(0);
   
       const dto = new BloodPressureDateCreaeDto(raw.Systolic, raw.Diastolic, raw.Pulse, date);
-      console.log(`Sending`, dto);
+
+      this.dataService.saveData(dto).subscribe(result => {
+      });
     } else {
       this.Message = "Bitte alle Felder korrekt eingeben."
     }

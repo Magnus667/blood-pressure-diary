@@ -3,6 +3,7 @@ export class BloodPressureDateCreaeDto {
         public Systolic: number,
         public Diastolic: number,
         public Pulse: number,
-        public Date: Date
+        public Date: Date,
+        public Id?: number
     ){}
 }

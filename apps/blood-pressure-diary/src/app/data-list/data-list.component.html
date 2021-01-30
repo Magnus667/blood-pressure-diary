@@ -1,0 +1,24 @@
+<table mat-table [dataSource]="data">
+    <ng-container matColumnDef="Systolic">
+        <th mat-header-cell *matHeaderCellDef>Systolisch</th>
+        <td mat-cell *matCellDef="let element"> {{element.Systolic}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Diastolic">
+        <th mat-header-cell *matHeaderCellDef>Diastolisch</th>
+        <td mat-cell *matCellDef="let element"> {{element.Diastolic}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Pulse">
+        <th mat-header-cell *matHeaderCellDef>Puls</th>
+        <td mat-cell *matCellDef="let element"> {{element.Pulse}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Date">
+        <th mat-header-cell *matHeaderCellDef>Zeitpunkt</th>
+        <td mat-cell *matCellDef="let element"> {{element.Date | date: 'dd.MM.YYYY HH:mm'}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

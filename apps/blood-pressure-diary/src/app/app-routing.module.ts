@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BloodPressureInputComponent } from './blood-pressure-input/blood-pressure-input.component';
+import { DataListComponent } from './data-list/data-list.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'input',
     component: BloodPressureInputComponent
+  },
+  {
+    path: 'data-list',
+    component: DataListComponent
   }
 ];
 
