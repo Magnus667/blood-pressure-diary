@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppService } from '../app.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   hide = true;
 
-  constructor(public readonly appService: AppService) { }
+  constructor(public readonly appService: AppService, private readonly snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -27,14 +28,24 @@ export class HomeComponent implements OnInit {
     const raw = this.LoginControls.getRawValue();
     try{
       await this.appService.login(raw.Login, raw.Password);
-      console.log(`Succeeded in component`)
+      this.snackBar.open(`Anmeldung erfolgreich`, ``, {
+        duration: 2000,
+        panelClass: ['mat-toolbar', 'mat-primary']
+      });
     }catch(error){
-      // TODO
-      console.log(`Failed in compnent with`, error);
+      this.snackBar.open(`Anmeldung fehlgeschlagen`, ``, {
+        duration: 2000,
+        panelClass: ['mat-toolbar', 'mat-warn']
+      });
     }
   }
 
   async logout(){
     this.appService.logout();
+
+    this.snackBar.open(`Abgemeldet`, ``, {
+      duration: 2000,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
   }
 }
