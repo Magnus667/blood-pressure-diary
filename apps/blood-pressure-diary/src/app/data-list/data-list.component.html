@@ -1,21 +1,21 @@
-<table mat-table [dataSource]="data">
+<table mat-table [dataSource]="dataSource" matSort matSortActive="Date" matSortDirection="desc">
     <ng-container matColumnDef="Systolic">
-        <th mat-header-cell *matHeaderCellDef>Systolisch</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Systolisch</th>
         <td mat-cell *matCellDef="let element"> {{element.Systolic}} </td>
       </ng-container>
 
       <ng-container matColumnDef="Diastolic">
-        <th mat-header-cell *matHeaderCellDef>Diastolisch</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Diastolisch</th>
         <td mat-cell *matCellDef="let element"> {{element.Diastolic}} </td>
       </ng-container>
 
       <ng-container matColumnDef="Pulse">
-        <th mat-header-cell *matHeaderCellDef>Puls</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Puls</th>
         <td mat-cell *matCellDef="let element"> {{element.Pulse}} </td>
       </ng-container>
 
       <ng-container matColumnDef="Date">
-        <th mat-header-cell *matHeaderCellDef>Zeitpunkt</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Zeitpunkt</th>
         <td mat-cell *matCellDef="let element"> {{element.Date | date: 'dd.MM.YYYY HH:mm'}} </td>
       </ng-container>
 

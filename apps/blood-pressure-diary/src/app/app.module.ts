@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -26,6 +27,7 @@ import { registerLocaleData } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { DataListComponent } from './data-list/data-list.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+
 registerLocaleData(localeDE);
 
 @NgModule({
@@ -47,6 +49,7 @@ registerLocaleData(localeDE);
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
+    MatSortModule,
     MatSnackBarModule
   ],
   providers: [
