@@ -10,3 +10,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 input.mat-input-element {
     font-size: 16px;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    // Why is this necessary? It seems material doesn't include the webkit autofill properies
+  -webkit-text-fill-color: #c1c1c1;
+  transition: background-color 5000s ease-in-out 0s;
+}
