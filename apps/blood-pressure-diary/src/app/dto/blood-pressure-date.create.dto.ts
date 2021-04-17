@@ -1,4 +1,4 @@
-export class BloodPressureDateCreaeDto {
+export class BloodPressureDateCreateDto {
     constructor(
         public Systolic: number,
         public Diastolic: number,

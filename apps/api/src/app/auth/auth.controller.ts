@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
@@ -9,12 +8,14 @@ export class AuthController {
 
     constructor(private readonly authService: AuthService){}
 
+    // This is used to login with user credentials
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() request){
         return this.authService.login(request.user);
     }
 
+    // This is used to restore the session from the session token when the user visits the site again
     @UseGuards(JwtAuthGuard)
     @Get('login')
     async getUser(@Request() request){
@@ -23,7 +24,7 @@ export class AuthController {
         if(user){
             return user;
         } else {
-            // todo: return not found
+            // TODO: Return SessionInvalidError instead of null
             return null;
         }
     }

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { MAT_MOMENT_DATE_FORMATS,  MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter'
-import { BloodPressureDateCreaeDto } from '../dto/blood-pressure-date.create.dto';
+import { BloodPressureDateCreateDto } from '../dto/blood-pressure-date.create.dto';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { DataService } from '../data.service';
@@ -59,7 +59,7 @@ export class BloodPressureInputComponent implements OnInit {
       date.setMinutes(+minutes);
       date.setSeconds(0);
   
-      const dto = new BloodPressureDateCreaeDto(raw.Systolic, raw.Diastolic, raw.Pulse, date);
+      const dto = new BloodPressureDateCreateDto(raw.Systolic, raw.Diastolic, raw.Pulse, date);
 
       this.dataService.saveData(dto).subscribe(result => {
         this.snackBar.open(`Gespeichert`, ``, {

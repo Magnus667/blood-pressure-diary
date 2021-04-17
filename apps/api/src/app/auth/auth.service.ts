@@ -7,7 +7,7 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-    constructor(@InjectRepository(UserEntity) private readonly repository: Repository<UserEntity>, private readonly jwtService: JwtService){}
+    constructor(@InjectRepository(UserEntity) private readonly repository: Repository<UserEntity>, private readonly jwtService: JwtService){ }
 
     async validate(login: string, password: string): Promise<any>{
         const user: UserEntity = await this.repository.findOne({where: { username: ILike(login) }});

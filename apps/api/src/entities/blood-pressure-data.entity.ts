@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 
 @Entity({name: 'T_BLOOD_PRESSURE_DATA'})
-export class BloodPressureData {
+export class BloodPressureDataEntity {
     @PrimaryGeneratedColumn({name: 'id'})
     Id: number;
 

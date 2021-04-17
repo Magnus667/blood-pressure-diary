@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,20 +18,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
+import {  MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import localeDE from '@angular/common/locales/de'
 import { registerLocaleData } from '@angular/common';
 import { HomeComponent } from './home/home.component';
-import { DataListComponent } from './data-list/data-list.component';
+import { BloodPressureDiaryDeleteDialogComponent, DataListComponent } from './data-list/data-list.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { MatDialogModule } from '@angular/material/dialog';
 
 registerLocaleData(localeDE);
 
 @NgModule({
-  declarations: [AppComponent, BloodPressureInputComponent, HomeComponent, DataListComponent],
+  declarations: [AppComponent, BloodPressureInputComponent, HomeComponent, DataListComponent, BloodPressureDiaryDeleteDialogComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -49,8 +51,10 @@ registerLocaleData(localeDE);
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
+    MatPaginatorModule,
     MatSortModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -49,6 +49,8 @@
     "@nestjs/typeorm": "^7.1.5",
     "@nrwl/angular": "11.1.5",
     "bcrypt": "^5.0.0",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",

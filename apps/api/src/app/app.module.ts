@@ -6,16 +6,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule} from '@nestjs/typeorm';
 import { BloodPressureDataModule } from '../blood-pressure-data/blood-pressure-data.module';
-import { BloodPressureData } from '../entities/blood-pressure-data.entity';
+import { BloodPressureDataEntity } from '../entities/blood-pressure-data.entity';
 import { UserEntity } from '../entities/user.entity'
 import { AuthModule } from '../app/auth/auth.module';
 import { AuthController } from './auth/auth.controller';
 
 
-// '..' is used for heroku. '../..' is used for development.
-// TODO: Use NODE_ENV = prod for this.
+// '..'    is used for NODE_ENV = 'prod' (heroku)
+// '../..' is used for NODE_ENV = 'development'
 const pathFix = process.env.NODE_ENV === "development" ? '../..' : '..';
-console.log(__dirname, pathFix, '/blood-pressure-diary');
+
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -28,9 +28,8 @@ console.log(__dirname, pathFix, '/blood-pressure-diary');
         rejectUnauthorized: false
       },
       entities: [
-        BloodPressureData,
+        BloodPressureDataEntity,
         UserEntity
-        // "entities/*.ts"
       ]
     }),
     AuthModule,
