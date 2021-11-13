@@ -1,5 +1,11 @@
 import { Medication } from '@blood-pressure-diary/api-interfaces';
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinColumn,
+  OneToOne,
+} from 'typeorm';
 import { MedicineEntity } from './medicine.entity';
 
 @Entity({ name: 'T_MEDICATION' })
@@ -21,5 +27,5 @@ export class MedicationEntity implements Medication {
 
   @OneToOne(() => MedicineEntity)
   @JoinColumn()
-  medicine: MedicationEntity
+  medicine: MedicineEntity;
 }

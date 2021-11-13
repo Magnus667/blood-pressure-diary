@@ -39,40 +39,42 @@ export class MedicineService {
     return record && record.UserId === userId;
   }
 
-  
-    /**
-     * Selects paginated data with possibility to sort and filter the data before
-     * @param pageNumber The number of the page to fetch (0 is first page)
-     * @param pageSize The number of records on a page
-     * @param sortOrder The order type (ascending or descinding) for sorting
-     * @param sortProperty The property to sort on
-     * @param query Optional query params for filtering
-     */
-    public async page(pageNumber: number, pageSize: number, sortOrder: 'ASC' | 'DESC', sortProperty: keyof MedicationEntity, query: Partial<MedicationEntity>): Promise<Page<MedicationEntity>>{
+  /**
+   * Selects paginated data with possibility to sort and filter the data before
+   * @param pageNumber The number of the page to fetch (0 is first page)
+   * @param pageSize The number of records on a page
+   * @param sortOrder The order type (ascending or descinding) for sorting
+   * @param sortProperty The property to sort on
+   * @param query Optional query params for filtering
+   */
+  public async page(
+    pageNumber: number,
+    pageSize: number,
+    sortOrder: 'ASC' | 'DESC',
+    sortProperty: keyof MedicationEntity,
+    query: Partial<MedicationEntity>
+  ): Promise<Page<MedicationEntity>> {
+    // NOTE: At this point it is not necessary to declare the where of type Where
+    //       This is for other filtering scenarios like: where = { ColumnName: `Like '%Parameter%'` }
+    const where: Where<Omit<MedicationEntity, 'medicine'>> = query;
 
-      // NOTE: At this point it is not necessary to declare the where of type Where
-      //       This is for other filtering scenarios like: where = { ColumnName: `Like '%Parameter%'` }
-      // const where: Where<MedicationEntity> = query;
+    const result = await this.medicationRepository.findAndCount({
+      skip: pageNumber * pageSize,
+      take: pageSize,
+      order: {
+        [sortProperty]: sortOrder,
+      },
+      relations: ['medicine'],
+      where,
+    });
 
-      const result = await this.medicationRepository.findAndCount({
-          skip: pageNumber * pageSize,
-          take: pageSize,
-          order: {
-              [sortProperty]: sortOrder
-          },
-          relations: ['medicine']
-          // where
-      });
+    const page: Page<MedicationEntity> = {
+      content: result[0],
+      totalElements: result[1],
+      size: result[0].length,
+      number: pageNumber,
+    };
 
-      const page: Page<MedicationEntity> = {
-          content: result[0],
-          totalElements: result[1],
-          size: result[0].length,
-          number: pageNumber
-      }
-
-      return page;
-
+    return page;
   }
-
 }
