@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@blood-pressure-diary/api-interfaces';
 import { AppService } from './app.service';
 
 @Component({
@@ -9,6 +8,5 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
   constructor(private appService: AppService, private http: HttpClient) {}
 }

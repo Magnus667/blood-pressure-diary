@@ -1,30 +1,28 @@
 <form class="input-form" [formGroup]="DataValueControl">
   <mat-form-field appearance="standard">
-    <mat-label>Systolischer Blutdruck</mat-label>
-    <input matInput type="number" max="300" formControlName="Systolic" />
+    <mat-label>Medikament</mat-label>
+    <mat-select [(value)]="selectedMedicine" formControlName="MedicineId">
+      <mat-option *ngFor="let med of medicine$ | async" [value]="med?.Id">
+        {{ med.Name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
+
   <mat-form-field appearance="standard">
-    <mat-label>Diastolischer Blutdruck</mat-label>
-    <input matInput type="number" max="300" formControlName="Diastolic" />
-    <mat-icon matSuffix></mat-icon
-    ><!-- This is to fix the length of the input for datepicker-->
+    <mat-label>Dosis [mg]</mat-label>
+    <input matInput type="number" formControlName="Dosage" />
   </mat-form-field>
-  <mat-form-field appearance="standard">
-    <mat-label>Puls</mat-label>
-    <input matInput type="number" max="300" formControlName="Pulse" />
-    <mat-icon matSuffix></mat-icon
-    ><!-- This is to fix the length of the input for datepicker-->
-  </mat-form-field>
+
   <mat-form-field appearance="standard">
     <mat-label>Uhrzeit</mat-label>
     <input matInput type="time" formControlName="Time" />
-    <mat-icon matSuffix></mat-icon>
   </mat-form-field>
+
   <mat-form-field appearance="standard">
     <mat-label>Datum</mat-label>
     <input matInput [matDatepicker]="picker" formControlName="Date" />
     <mat-icon matSuffix (click)="picker.open()">event</mat-icon>
-    <mat-datepicker touchUi="true" #picker></mat-datepicker>
+    <mat-datepicker touchUi="true" #picker> </mat-datepicker>
   </mat-form-field>
 
   <p>

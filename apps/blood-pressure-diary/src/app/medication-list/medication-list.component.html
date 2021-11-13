@@ -1,0 +1,39 @@
+<table mat-table [dataSource]="dataSource" matSort matSortActive="Date" matSortDirection="desc">
+    <!-- Header row definition (column names) -->
+    <ng-container matColumnDef="MedicineName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Medikament</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.medicine.Name}}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Dosage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Dos.</th>
+      <td mat-cell *matCellDef="let element"> {{element.Dosage}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Timestamp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Zeitpunkt</th>
+      <td mat-cell *matCellDef="let element"> {{element.Timestamp | date: 'dd.MM.YYYY HH:mm'}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="edit(element)" disabled>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator *ngIf="dataSource.page$ | async as page"
+    [length]="page.totalElements" [pageSize]="page.size"
+    [pageIndex]="page.number" [hidePageSize]="true" 
+    (page)="dataSource.fetch($event.pageIndex)">
+  </mat-paginator>
