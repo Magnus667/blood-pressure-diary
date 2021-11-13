@@ -95,4 +95,10 @@ export class DataService {
       params,
     });
   }
+
+  public deleteMedication(id: number): Observable<Medication> {
+    return this.http.delete<Medication>(
+      `${environment.apiUrl}/medication/${id}`
+    );
+  }
 }

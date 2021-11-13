@@ -11,9 +11,11 @@ import {
   UsePipes,
   ValidationPipe,
   Query,
+  Delete,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../app/auth/jwt-auth.guard';
 import { MedicationEntity } from '../entities/medication.entity';
+import { IsOwnerGuard } from './is-owner.guard';
 import { MedicationDto, MedicationPageDto } from './medication.dto';
 import { MedicineService } from './medicine.service';
 
@@ -24,13 +26,25 @@ export class MedicationController {
   @UseGuards(JwtAuthGuard)
   @Get('page')
   @UsePipes(new ValidationPipe({ whitelist: false, transform: true }))
-  async getPage(@Request() request, @Query() query: MedicationPageDto){
-      const where: Partial<MedicationEntity> = { UserId: request.user.id };
-      if(query.MedicineId){ where['MedicineId'] = query.MedicineId; }
-      if(query.Dosage){ where['Dosage'] = query.Dosage; }
-      if(query.Timestamp){ where['Timestamp'] = query.Timestamp; }
-      
-      return this.service.page(query.pageNumber, query.pageSize, query.sortOrder, query.sortProperty, where);
+  async getPage(@Request() request, @Query() query: MedicationPageDto) {
+    const where: Partial<MedicationEntity> = { UserId: request.user.id };
+    if (query.MedicineId) {
+      where['MedicineId'] = query.MedicineId;
+    }
+    if (query.Dosage) {
+      where['Dosage'] = query.Dosage;
+    }
+    if (query.Timestamp) {
+      where['Timestamp'] = query.Timestamp;
+    }
+
+    return this.service.page(
+      query.pageNumber,
+      query.pageSize,
+      query.sortOrder,
+      query.sortProperty,
+      where
+    );
   }
 
   @UseGuards(JwtAuthGuard)
@@ -67,5 +81,11 @@ export class MedicationController {
     entity.Timestamp = dto.Timestamp;
 
     return this.service.save(entity);
+  }
+
+  @UseGuards(JwtAuthGuard, IsOwnerGuard)
+  @Delete(':id')
+  async delete(@Request() request, @Param('id', ParseIntPipe) id: number) {
+    return this.service.deleteMedication(id, request.user.id);
   }
 }

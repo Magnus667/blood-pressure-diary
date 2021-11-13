@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Page } from '../app/util/page';
@@ -76,5 +76,28 @@ export class MedicineService {
     };
 
     return page;
+  }
+
+  /**
+   * Deletes the given entity.
+   * @param id Id of the entity
+   * @param userId The id of the user, that requests the deletion
+   */
+  public async deleteMedication(
+    id: number,
+    userId: number
+  ): Promise<MedicationEntity> {
+    const isOwner = await this.isOwner(id, userId);
+    if (isOwner) {
+      const record: MedicationEntity = await this.medicationRepository.findOne(
+        id
+      );
+      if (record) {
+        // Use .remove() here, not .delete(), because remove returns the entity. So the frontend can use this result (e.g. to present a message to the user)
+        return this.medicationRepository.remove(record);
+      } else {
+        throw new NotFoundException();
+      }
+    }
   }
 }
